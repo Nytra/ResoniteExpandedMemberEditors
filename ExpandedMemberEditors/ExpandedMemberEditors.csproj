@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<Version>1.0.0</Version>
+		<ProductName>ExpandedMemberEditors</ProductName>
+		<AssemblyName>ExpandedMemberEditors</AssemblyName>
+		<Copyright>Copyright © Nytra 2026</Copyright>
+		<Authors>Nytra</Authors>
+		<OutputType>Library</OutputType>
+		<TargetFramework>net10.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<ProjectGuid>{0322B2EF-7452-479D-BAE2-FCAB75033337}</ProjectGuid>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(ResonitePath)' == ''">
+		<!-- default windows and linux paths, manual fallback if both don't turn up anything -->
+		<ResonitePath Condition="'$(OS)' == 'Windows_NT' and Exists('C:\Program Files (x86)\Steam\steamapps\common\Resonite')">C:/Program Files (x86)/Steam/steamapps/common/Resonite</ResonitePath>
+
+		<ResonitePath Condition="'$(OS)' != 'Windows_NT' and Exists('$(HOME)/.local/share/Steam/steamapps/common/Resonite')">$(HOME)/.local/share/Steam/steamapps/common/Resonite</ResonitePath>
+
+		<ResonitePath Condition="'$(OS)' != 'Windows_NT' and Exists('/media/linux_data/Steam/steamapps/common/Resonite/')">/media/linux_data/Steam/steamapps/common/Resonite/</ResonitePath>
+
+		<ResonitePath Condition="'$(ResonitePath)' == ''">G:\SteamLibrary\steamapps\common\Resonite</ResonitePath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Reference Include="FrooxEngine">
+			<HintPath>$(ResonitePath)/FrooxEngine.dll</HintPath>
+		</Reference>
+		<Reference Include="Elements.Core">
+			<HintPath>$(ResonitePath)/Elements.Core.dll</HintPath>
+		</Reference>
+		<Reference Include="Elements.Assets">
+			<HintPath>$(ResonitePath)/Elements.Assets.dll</HintPath>
+		</Reference>
+		<Reference Include="ResoniteModLoader">
+			<HintPath>$(ResonitePath)/Libraries/ResoniteModLoader.dll</HintPath>
+		</Reference>
+		<Reference Include="HarmonyLib">
+			<HintPath>$(ResonitePath)/rml_libs/0Harmony.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(Configuration)' == 'Debug'">
+		<Reference Include="ResoniteHotReloadLib">
+			<HintPath>$(ResonitePath)/rml_libs/ResoniteHotReloadLib.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Message Condition="'$(Configuration)' == 'Debug'" Text="Debug build, copying $(TargetFileName) to $(ResonitePath)/rml_mods/HotReloadMods" Importance="High" />
+		<Copy Condition="'$(Configuration)' == 'Debug'" SourceFiles="$(TargetPath)" DestinationFolder="$(ResonitePath)/rml_mods/HotReloadMods" />
+		<Message Text="Copying $(TargetFileName) to $(ResonitePath)/rml_mods" Importance="High" />
+		<Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ResonitePath)/rml_mods" />
+	</Target>
+
+</Project>
