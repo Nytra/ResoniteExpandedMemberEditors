@@ -112,7 +112,15 @@ public class ExpandedMemberEditors : ResoniteMod
 				ui.VerticalLayout(4f);
 				foreach (var kvp in dict.BoxedEntries)
 				{
-					SyncMemberEditorBuilder.Build(kvp.Value, kvp.Key.ToString()!, null!, ui, labelSize);
+					if (kvp.Value is not null)
+					{
+						SyncMemberEditorBuilder.Build(kvp.Value, kvp.Key.ToString()!, null!, ui, labelSize);
+					}
+					else
+					{
+						ui.Style.MinHeight = 24f;
+						ui.Text($"{kvp.Key}: <null>");
+					}
 				}
 				ui.NestOut();
 				ui.NestOut();
