@@ -1,6 +1,8 @@
 # ExpandedMemberEditors
 
-A [ResoniteModLoader](https://github.com/resonite-modding-group/ResoniteModLoader) mod for [Resonite](https://resonite.com/) that adds inspector UI for SyncVar and SyncDictionary.
+![2026-02-15 10 39 41](https://github.com/user-attachments/assets/64d243f0-3142-4842-ab1e-52007d7add9b)
+
+A [ResoniteModLoader](https://github.com/resonite-modding-group/ResoniteModLoader) mod for [Resonite](https://resonite.com/) that adds basic inspector UI for SyncVar and SyncDictionary.
 
 ## Installation
 1. Install [ResoniteModLoader](https://github.com/resonite-modding-group/ResoniteModLoader).
