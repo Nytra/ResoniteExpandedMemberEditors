@@ -138,12 +138,15 @@ public class ExpandedMemberEditors : ResoniteMod
 				ui.PrimitiveMemberEditor((IField)valueComp.GetSyncMember("Value"));
 				ui.PopStyle();
 
+				ui.PushStyle();
+				ui.Style.FlexibleWidth = -1f;
 				ui.Button("Add").LocalPressed += (btn, data) =>
 				{
 					var member = dictionary.Add(((IField)keyComp.GetSyncMember("Value")).BoxedValue);
 					var field = (IField)member;
 					field.BoxedValue = ((IField)valueComp.GetSyncMember("Value")).BoxedValue;
 				};
+				ui.PopStyle();
 			}
 			else
 			{
@@ -158,12 +161,15 @@ public class ExpandedMemberEditors : ResoniteMod
 				ui.RefMemberEditor((ISyncRef)refComp.GetSyncMember("Reference"));
 				ui.PopStyle();
 
+				ui.PushStyle();
+				ui.Style.FlexibleWidth = -1f;
 				ui.Button("Add").LocalPressed += (btn, data) =>
 				{
 					var member = dictionary.Add(((IField)keyComp.GetSyncMember("Value")).BoxedValue);
 					var field = (IField)member;
 					field.BoxedValue = ((IField)refComp.GetSyncMember("Reference")).BoxedValue;
 				};
+				ui.PopStyle();
 			}
 			ui.PopStyle();
 			ui.NestOut();
