@@ -16,7 +16,7 @@ public class ExpandedMemberEditors : ResoniteMod
 {
 	public override string Name => "Expanded Member Editors";
 	public override string Author => "Nytra";
-	public override string Version => "1.0.0";
+	public override string Version => "1.1.0";
 	public override string Link => "https://github.com/Nytra/ResoniteExpandedMemberEditors";
 
 	private static Harmony harmony = new Harmony("owo.Nytra.ExpandedMemberEditors");
@@ -141,8 +141,8 @@ public class ExpandedMemberEditors : ResoniteMod
 				ui.Button("Add").LocalPressed += (btn, data) =>
 				{
 					var member = dictionary.Add(((IField)keyComp.GetSyncMember("Value")).BoxedValue);
-					var thing = (IField)member;
-					thing.BoxedValue = ((IField)valueComp.GetSyncMember("Value")).BoxedValue;
+					var field = (IField)member;
+					field.BoxedValue = ((IField)valueComp.GetSyncMember("Value")).BoxedValue;
 				};
 			}
 			else
@@ -161,8 +161,8 @@ public class ExpandedMemberEditors : ResoniteMod
 				ui.Button("Add").LocalPressed += (btn, data) =>
 				{
 					var member = dictionary.Add(((IField)keyComp.GetSyncMember("Value")).BoxedValue);
-					var thing = (IField)member;
-					thing.BoxedValue = ((IField)refComp.GetSyncMember("Reference")).BoxedValue;
+					var field = (IField)member;
+					field.BoxedValue = ((IField)refComp.GetSyncMember("Reference")).BoxedValue;
 				};
 			}
 			ui.PopStyle();
@@ -184,7 +184,7 @@ public class ExpandedMemberEditors : ResoniteMod
 			{
 				ui.PushStyle();
 				ui.Style.MinHeight = -1f;
-				
+
 				ui.VerticalLayout(4f);
 
 				var genProxySource = config.GetValue(Key_VarProxySources);
